@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"smartport-go/internal/core/domain"
+	"TOS-PROJECT-MVP/cmd/server/internal/core/domain"
 
 	"gorm.io/gorm"
 )

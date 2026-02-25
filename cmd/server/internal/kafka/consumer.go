@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"smartport-go/internal/core/domain"
-	"smartport-go/internal/core/services"
 
 	"github.com/segmentio/kafka-go"
+	"github.com/seuusuario/TOS-PROJECT-MVP/cmd/server/internal/core/domain"
+	"github.com/seuusuario/TOS-PROJECT-MVP/cmd/server/internal/core/services"
 )
 
 type ContainerConsumer struct {
