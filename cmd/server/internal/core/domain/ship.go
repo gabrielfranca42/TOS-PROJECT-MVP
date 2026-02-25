@@ -1,8 +1,11 @@
 package domain
 
-import "errors"
+import (
+	"errors"
+	"time"
+)
 
-// Ship representa a entidade principal do seu domínio
+// Ship representa a entidade do seu domínio
 type Ship struct {
 	ID            string
 	Name          string
@@ -11,13 +14,18 @@ type Ship struct {
 	Status        string
 }
 
-// Regra de Negócio: O navio pode ser liberado?
-// Note que isso é puro Go, sem dependências externas.
+// ContainerEvent representa o evento para o Kafka
+type ContainerEvent struct {
+	ContainerID string    `json:"container_id"`
+	ShipID      string    `json:"ship_id"`
+	Status      string    `json:"status"`
+	Timestamp   time.Time `json:"timestamp"`
+}
+
 func (s *Ship) CanDepart() bool {
 	return s.LoadedCount >= s.TotalCapacity
 }
 
-// Incrementa a carga e valida
 func (s *Ship) LoadContainer() error {
 	if s.LoadedCount >= s.TotalCapacity {
 		return errors.New("navio já está na capacidade máxima")

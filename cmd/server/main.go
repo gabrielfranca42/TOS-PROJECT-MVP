@@ -1,13 +1,17 @@
-func main() {
-    // 1. Conecta no Banco
-    db := setupPostgres() 
-    
-    // 2. Instancia o Repository
-    repo := repository.NewPostgresRepository(db)
-    
-    // 3. Instancia o Service passando o Repo
-    service := services.NewPortService(repo)
-    
-    // 4. Instancia o Handler HTTP e o Consumidor Kafka passando o Service
-    // ...
+package main
+
+import (
+	"log"
+
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+)
+
+func setupPostgres() *gorm.DB {
+	dsn := "host=localhost user=postgres password=suasenha dbname=tos_db port=5432 sslmode=disable"
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatal("Falha ao conectar no banco de dados:", err)
+	}
+	return db
 }
