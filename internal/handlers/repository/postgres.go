@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"TOS-PROJECT-MVP/cmd/server/internal/core/domain"
+	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/domain"
 
 	"gorm.io/gorm"
 )

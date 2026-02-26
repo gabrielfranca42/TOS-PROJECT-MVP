@@ -6,8 +6,8 @@ import (
 	"fmt"
 
 	"github.com/segmentio/kafka-go"
-	"github.com/seuusuario/TOS-PROJECT-MVP/cmd/server/internal/core/domain"
-	"github.com/seuusuario/TOS-PROJECT-MVP/cmd/server/internal/core/services"
+	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/domain"
+	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/services"
 )
 
 type ContainerConsumer struct {
@@ -42,7 +42,7 @@ func (c *ContainerConsumer) Start(ctx context.Context) {
 		}
 
 		// AQUI CONECTA COM A LÓGICA DE NEGÓCIO (SERVICE -> DOMAIN)
-		err = c.service.ProcessContainerMovement(event)
+		err = c.service.ProcessContainerLoaded(event.ShipID)
 		if err != nil {
 			fmt.Printf("Erro ao processar carga: %v\n", err)
 		}

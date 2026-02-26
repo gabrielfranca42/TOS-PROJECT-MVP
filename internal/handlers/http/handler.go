@@ -2,7 +2,8 @@ package http
 
 import (
 	"net/http"
-	"smartport-go/internal/core/services"
+
+	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/services"
 
 	"github.com/gin-gonic/gin" // Exemplo usando o framework Gin
 )

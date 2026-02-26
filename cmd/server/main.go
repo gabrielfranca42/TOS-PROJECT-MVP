@@ -1,17 +1,23 @@
 package main
 
 import (
-	"log"
+	"context"
+	"time"
 
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/domain"
+	"github.com/seuusuario/TOS-PROJECT-MVP/internal/kafka"
 )
 
-func setupPostgres() *gorm.DB {
-	dsn := "host=localhost user=postgres password=suasenha dbname=tos_db port=5432 sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		log.Fatal("Falha ao conectar no banco de dados:", err)
+func main() {
+	for {
+		event := domain.ContainerEvent{
+			ContainerID: "CONT-IOT-001",
+			ShipID:      "SHIP-123",
+			Status:      "LOADED",
+			Timestamp:   time.Now(),
+		}
+
+		kafka.ProduceContainerEvent(context.Background(), event)
+		time.Sleep(5 * time.Second)
 	}
-	return db
 }
