@@ -5,9 +5,15 @@ import (
 	"fmt"
 	"time"
 
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+
 	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/domain"
 	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/services"
 	"github.com/seuusuario/TOS-PROJECT-MVP/internal/kafka"
+
+	// MANTER APENAS O CAMINHO CORRETO. Exemplo:
+	"github.com/seuusuario/TOS-PROJECT-MVP/internal/handlers/repository"
 )
 
 func main() {
@@ -15,9 +21,19 @@ func main() {
 
 	fmt.Println("Iniciando TOS-PROJECT-MVP...")
 
-	// 1. Inicializar o serviço de domínio
-	// (Se o seu PortService tiver um construtor como NewPortService, use-o aqui)
-	portService := &services.PortService{}
+	dsn := "host=localhost user=user password=password dbname=smartport port=5432 sslmode=disable"
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("falha de infraestrutura: impossível conectar ao banco de dados alerta de panico de gorilla:" + err.Error())
+
+	}
+
+	// 1. Inicializar o repositório (Requer a sua implementação real de banco de dados ou mock)
+	// Exemplo: repo := repositories.NewShipRepository(dbConnection)
+	repo := repository.NewPostgresRepository(db)
+
+	// 2. Inicializar o serviço de domínio utilizando o construtor correto
+	portService := services.NewPortService(repo)
 
 	// 2. Inicializar o consumidor do Kafka
 	brokers := []string{"localhost:9092"}
