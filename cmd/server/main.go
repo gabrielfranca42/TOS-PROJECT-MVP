@@ -21,7 +21,7 @@ func main() {
 
 	fmt.Println("Iniciando TOS-PROJECT-MVP...")
 
-	dsn := "host=localhost user=user password=password dbname=smartport port=5432 sslmode=disable"
+	dsn := "host=127.0.0.1 user=user password=password dbname=smartport port=5433 sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("falha de infraestrutura: impossível conectar ao banco de dados alerta de panico de gorilla:" + err.Error())
