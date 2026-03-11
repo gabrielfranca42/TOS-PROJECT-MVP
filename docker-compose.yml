@@ -10,11 +10,12 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "9092:9092"
+      - "9093:9093" #porta original e 9092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093 #aqui nao deveria ter mas as portas da pr sao bloqueadas  original e 9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093 #porta originla e 9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       # Adicione esta linha se o erro persistir em versões 7.x:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
@@ -35,7 +36,7 @@ services:
       - "8081:8081"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9093 #porta original e 9092
       
       version: '3.8'
 

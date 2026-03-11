@@ -7,7 +7,7 @@ import (
 	"net/http" // Adicionado para o Servidor Web
 	"time"
 
-	"github.com/gorilla/mux"                                // Adicionado para Rotas
+	"github.com/gorilla/mux" // Adicionado para Rotas
 	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/domain"
 	"github.com/seuusuario/TOS-PROJECT-MVP/internal/core/services"
 	"github.com/seuusuario/TOS-PROJECT-MVP/internal/handlers/repository"
@@ -51,7 +51,7 @@ func main() {
 	portService := services.NewPortService(repo)
 
 	// 3. Inicializar o consumidor do Kafka
-	brokers := []string{"localhost:9092"}
+	brokers := []string{"localhost:9093"} // a porta original e 9092
 	consumer := kafka.NewTelemetryConsumer(brokers, portService)
 
 	// 4. Rodar o consumidor em uma Goroutine (em segundo plano)
@@ -64,7 +64,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 
 	// --- MODIFICAÇÃO 3: Inicialização do Produtor IoT (Connection Pooling) ---
-	producer := kafka.NewTelemetryProducer("localhost:9092", "v1.telemetry.draft")
+	producer := kafka.NewTelemetryProducer("localhost:9093", "v1.telemetry.draft") // aqui a porta original e 9092
 	defer producer.Close()
 
 	// ==========================================================
@@ -120,9 +120,9 @@ func main() {
 		json.NewEncoder(w).Encode(ship)
 	}).Methods("GET")
 
-	fmt.Println("Servidor HTTP iniciado em http://localhost:8080")
+	fmt.Println("Servidor HTTP iniciado em http://localhost:3000") //aqui a porta original e
 	// Este é o ponto que segura a aplicação ligada
-	if err := http.ListenAndServe(":8080", r); err != nil {
+	if err := http.ListenAndServe(": 3000", r); err != nil { //aqui a porta original e 3000
 		fmt.Printf("Falha no servidor HTTP: %v\n", err)
 	}
 }
