@@ -7,11 +7,11 @@ import (
 
 // Ship representa a entidade do seu domínio
 type Ship struct {
-	ID            string
-	Name          string
-	TotalCapacity int
-	LoadedCount   int
-	Status        string
+    ID            string `gorm:"primaryKey;column:id"`
+    Name          string `gorm:"column:name;not null"`
+    TotalCapacity int    `gorm:"column:total_capacity"`
+    LoadedCount   int    `gorm:"column:loaded_count"`
+    Status        string `gorm:"column:status"`
 }
 
 // ContainerEvent representa o evento para o Kafka
@@ -21,6 +21,8 @@ type ContainerEvent struct {
 	Status      string    `json:"status"`
 	Timestamp   time.Time `json:"timestamp"`
 }
+
+
 
 func (s *Ship) CanDepart() bool {
 	return s.LoadedCount >= s.TotalCapacity
