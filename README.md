@@ -111,6 +111,16 @@ As seguintes demandas arquiteturais e regras de negócio estão mapeadas para o 
 * **Cálculo de Conclusão de Operação:** Desenvolver a lógica no `PortService` para avaliar as métricas de profundidade.
 * **Parâmetros Específicos por Navio:** Estruturar a entidade `Ship` para conter propriedades limitantes (thresholds) de calado máximo e mínimo. A regra deverá considerar que a marcação de fim de descarga ou carregamento varia de acordo com as especificações físicas e a capacidade de lastro de cada embarcação de forma individual.
 
+*3 Transição para Ambiente de Produção (Google Cloud Platform - GCP):
+
+Desativação do Ambiente Local: Migração da execução em localhost e substituição do docker-compose por infraestrutura em nuvem gerenciada.
+
+Containerização e Orquestração: Implantação da aplicação Go nativa no Google Kubernetes Engine (GKE) ou no Google Cloud Run para escalabilidade automática.
+
+Banco de Dados Gerenciado: Transição do PostgreSQL local para o Cloud SQL for PostgreSQL, assegurando alta disponibilidade e backups automatizados.
+
+Roteamento e Rede: Configuração de um Cloud Load Balancer para gerenciar o tráfego de entrada na API REST (HTTP) e a ingestão de dados dos sensores IoT (MQTT TCP).
+
 
 
 ```
